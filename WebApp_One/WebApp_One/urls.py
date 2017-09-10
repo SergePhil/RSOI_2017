@@ -15,7 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from WebAppOne.custom_views.GreetingsView import GreetingsView
+from WebAppOne import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^greet/', GreetingsView.as_view()),
+    url(r'^test/', views.test),
 ]
