@@ -12,3 +12,9 @@ install:
 script:
   #- pytest # or py.test for Python versions 3.5 and below
   - python WebApp_One/manage.py test WebApp_One/
+
+deploy:
+  provider: heroku
+  api_key:
+    secure: "22144373-864f-4941-be97-ee4a7e668147"
+  app: rsoi-web-app
