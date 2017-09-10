@@ -1,7 +1,6 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import View
-from django.http import Http404
+from django.http import HttpResponseBadRequest
 
 
 class GreetingsView(View):
@@ -11,8 +10,6 @@ class GreetingsView(View):
     def get(self, request):
         gender = request.GET.get('gender', None)
         last_name = request.GET.get('last_name', None)
-        if last_name == None:
-            raise Http404
 
         context = {'last_name': last_name, 'male_greeting' : False}
         if gender == 'm':
@@ -20,6 +17,9 @@ class GreetingsView(View):
         elif gender == 'f':
             context['male_greeting'] = False
         else:
-            raise Http404
+            return HttpResponseBadRequest('Gender is either m or f')
+
+        if last_name == None or last_name == '':
+            return HttpResponseBadRequest('Last name should be specified')
 
         return render(request, self.template_name, context)
